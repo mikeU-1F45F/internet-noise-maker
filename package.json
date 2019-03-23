@@ -1,6 +1,6 @@
 {
   "name": "internet-noise-maker",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Make some noise for your ISP to chew on",
   "main": "index.js",
   "scripts": {
