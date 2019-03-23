@@ -1,4 +1,4 @@
-FROM node:8.15.1-jessie
+FROM node:11.12-alpine
 
 ENV SRC_ROOT /src
 
@@ -6,7 +6,7 @@ RUN mkdir -p ${SRC_ROOT}
 WORKDIR ${SRC_ROOT}
 COPY . ${SRC_ROOT}
 
-RUN apt-get update && apt-get upgrade -y
+RUN apk update
 
 RUN npm install
 
