@@ -14,9 +14,10 @@ function get_random_word() {
 }
 
 function lucky(words, name) {
-  const url = `https://www.google.com/search?btnI&q=${encodeURIComponent(
-    words.join(' '),
-  )}`
+  const encodedQueryWords = encodeURIComponent(words.join(' '))
+  const url = `https://www.google.com/search?btnI&q=${encodedQueryWords}`
+
+  console.info(`Navigate tab to : ${url}`)
 
   // if (name in popups && !popups[name]) {
   //   // If browser is blocking our pop-ups, return.
