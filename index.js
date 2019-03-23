@@ -1,5 +1,5 @@
 const nouns = require('./nouns.json')
-const Browser = require('zombie')
+const Nightmare = require('nightmare')
 
 let stop = false
 //let popups = {}
@@ -15,17 +15,21 @@ function get_random_word() {
 }
 
 async function lucky(words, name) {
-  const encodedQueryWords = encodeURIComponent(words.join('+'))
+  const encodedQueryWords = encodeURIComponent(words.join(' '))
   // kp=1 Safe Search On https://duckduckgo.com/params
   const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
   console.info(`Navigating to: ${url}`)
 
-  const browser = new Browser()
-  const response = await browser.fetch(url)
-  if (response.status === 200) {
-    console.log('Status code:', response.status)
-    console.log(`Page URL: ${response.url}`)
-  }
+  const browser = new Nightmare({ show: true })
+  // TODO: https://github.com/segmentio/nightmare#useragentuseragent
+
+  const randomPageUrl = await browser
+    .goto(url)
+    .wait(10000) // arbitrary, I know.
+    .url()
+    .end()
+
+  console.log(`Page URL: ${randomPageUrl}`)
 
   //console.log(browser.source)
 
@@ -54,10 +58,10 @@ function get_words() {
   const words = []
   const n = random_integer_between(min_number_of_words, max_number_of_words)
 
+  words.push('!ducky')
   for (let i = 0; i < n; i++) {
     words.push(get_random_word())
   }
-  words.push('!ducky') // Go directly to a result site
 
   return words
 }
