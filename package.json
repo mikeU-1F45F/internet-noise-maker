@@ -1,0 +1,11 @@
+{
+  "name": "internet-noise-maker",
+  "version": "0.0.1",
+  "description": "Make some noise for your ISP to chew on",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mike Chu",
+  "license": "ISC"
+}
