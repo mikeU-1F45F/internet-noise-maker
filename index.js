@@ -23,13 +23,13 @@ async function lucky(words, name) {
   const browser = new Nightmare({ show: true })
   // TODO: https://github.com/segmentio/nightmare#useragentuseragent
 
-  const randomPageUrl = await browser
+  const pageUrl = await browser
     .goto(url)
-    .wait(10000) // arbitrary, I know.
+    .wait(10000) // arbitrary, I know, but a little related extra traffic is cool too.
     .url()
-    .end()
+  const pageTitle = await browser.title().end()
 
-  console.log(`Page URL: ${randomPageUrl}`)
+  console.log(`Navigated to Random Page: ${pageTitle} @ ${pageUrl}`)
 
   //console.log(browser.source)
 
