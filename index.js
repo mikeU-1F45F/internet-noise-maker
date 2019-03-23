@@ -15,17 +15,19 @@ function get_random_word() {
 }
 
 async function lucky(words, name) {
-  const encodedQueryWords = encodeURIComponent(words.join(' '))
-  const url = `https://www.google.com/search?btnI&q=${encodedQueryWords}`
-
+  const encodedQueryWords = encodeURIComponent(words.join('+'))
+  // kp=1 Safe Search On https://duckduckgo.com/params
+  const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
   console.info(`Navigating to: ${url}`)
 
   const browser = new Browser()
   const response = await browser.fetch(url)
-  if (response.status === 200 ) {
+  if (response.status === 200) {
     console.log('Status code:', response.status)
     console.log(`Page URL: ${response.url}`)
   }
+
+  //console.log(browser.source)
 
   // if (name in popups && !popups[name]) {
   //   // If browser is blocking our pop-ups, return.
@@ -55,6 +57,7 @@ function get_words() {
   for (let i = 0; i < n; i++) {
     words.push(get_random_word())
   }
+  words.push('!ducky') // Go directly to a result site
 
   return words
 }
