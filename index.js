@@ -3,15 +3,15 @@ const Nightmare = require('nightmare')
 
 let stop = false
 //let popups = {}
-const min_number_of_words = 2
-const max_number_of_words = 4
+const minNumberOfWords = 2
+const maxNumberOfWords = 4
 
-function random_integer_between(a, b) {
+function randomInterBetween(a, b) {
   return a + Math.floor((1 + b - a) * Math.random())
 }
 
-function get_random_word() {
-  return nouns[random_integer_between(0, nouns.length - 1)]
+function getRandomWord() {
+  return nouns[randomInterBetween(0, nouns.length - 1)]
 }
 
 async function lucky(words, name) {
@@ -32,13 +32,13 @@ async function lucky(words, name) {
   console.log(`Navigated to Random Page: ${pageTitle} @ ${pageUrl}`)
 }
 
-function get_words() {
+function getWords() {
   const words = []
-  const n = random_integer_between(min_number_of_words, max_number_of_words)
+  const n = randomInterBetween(minNumberOfWords, maxNumberOfWords)
 
-  words.push('!ducky')
+  words.push('!ducky') // Like Google's I'm feeling lucky button
   for (let i = 0; i < n; i++) {
-    words.push(get_random_word())
+    words.push(getRandomWord())
   }
 
   return words
@@ -46,7 +46,7 @@ function get_words() {
 
 function noisify(name) {
   stop = false
-  lucky(get_words(), name)
+  lucky(getWords(), name)
 }
 
 noisify('noise_a')
