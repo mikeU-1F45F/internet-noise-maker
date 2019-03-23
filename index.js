@@ -5,6 +5,15 @@ const UserAgent = require('user-agents')
 const minNumberOfWords = 2
 const maxNumberOfWords = 4
 
+const minViewPort = {
+  width: 360,
+  height: 640,
+}
+const maxViewPort = {
+  width: 1920,
+  height: 1080,
+}
+
 function randomInterBetween(a, b) {
   return a + Math.floor((1 + b - a) * Math.random())
 }
@@ -13,15 +22,25 @@ function getRandomWord() {
   return nouns[randomInterBetween(0, nouns.length - 1)]
 }
 
+function getRandomViewport() {
+  return {
+    width: randomInterBetween(minViewPort.width, maxViewPort.width),
+    height: randomInterBetween(minViewPort.height, maxViewPort.height),
+  }
+}
+
 async function lucky(words, name) {
   const encodedQueryWords = encodeURIComponent(words.join(' '))
   // kp=1 Safe Search On https://duckduckgo.com/params
   const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
   console.info(`Navigating to: ${url}`)
 
-  const userAgent = new UserAgent()
   const browser = new Nightmare({ show: true })
-  browser.useragent(userAgent.toString())
+  const randomUserAgent = new UserAgent()
+  const randomViewport = getRandomViewport()
+
+  browser.useragent(randomUserAgent.toString())
+  browser.viewport(randomViewport.width, randomViewport.height)
 
   const pageUrl = await browser
     .goto(url)
@@ -29,7 +48,11 @@ async function lucky(words, name) {
     .url()
   const pageTitle = await browser.title().end()
 
-  console.log(`Navigated to Random Page: ${pageTitle} @ ${pageUrl}`)
+  console.log(`Internet Noise made at ${new Date()}`)
+  console.log(`Title: ${pageTitle}`)
+  console.log(`URL: ${pageUrl}`)
+  console.log(`Viewport Size: ${randomViewport.width}x${randomViewport.height}`)
+  console.log(`User Agent: ${randomUserAgent}`)
 }
 
 function getWords() {
