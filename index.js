@@ -1,4 +1,5 @@
 const nouns = require('./nouns.json')
+const Browser = require('zombie')
 
 let stop = false
 //let popups = {}
@@ -17,7 +18,21 @@ function lucky(words, name) {
   const encodedQueryWords = encodeURIComponent(words.join(' '))
   const url = `https://www.google.com/search?btnI&q=${encodedQueryWords}`
 
-  console.info(`Navigate tab to : ${url}`)
+  console.info(`Navigating to: ${url}`)
+
+  const browser = new Browser()
+  browser
+    .fetch(url)
+    .then(response => {
+      console.log('Status code:', response.status)
+      if (response.status === 200) {
+        console.log(`Page URL: ${response.url}`)
+        
+      }
+    })
+    .catch(error => {
+      console.log('Network error')
+    })
 
   // if (name in popups && !popups[name]) {
   //   // If browser is blocking our pop-ups, return.
