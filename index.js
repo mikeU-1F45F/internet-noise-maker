@@ -14,25 +14,18 @@ function get_random_word() {
   return nouns[random_integer_between(0, nouns.length - 1)]
 }
 
-function lucky(words, name) {
+async function lucky(words, name) {
   const encodedQueryWords = encodeURIComponent(words.join(' '))
   const url = `https://www.google.com/search?btnI&q=${encodedQueryWords}`
 
   console.info(`Navigating to: ${url}`)
 
   const browser = new Browser()
-  browser
-    .fetch(url)
-    .then(response => {
-      console.log('Status code:', response.status)
-      if (response.status === 200) {
-        console.log(`Page URL: ${response.url}`)
-        
-      }
-    })
-    .catch(error => {
-      console.log('Network error')
-    })
+  const response = await browser.fetch(url)
+  if (response.status === 200 ) {
+    console.log('Status code:', response.status)
+    console.log(`Page URL: ${response.url}`)
+  }
 
   // if (name in popups && !popups[name]) {
   //   // If browser is blocking our pop-ups, return.
