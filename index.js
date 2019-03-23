@@ -30,28 +30,6 @@ async function lucky(words, name) {
   const pageTitle = await browser.title().end()
 
   console.log(`Navigated to Random Page: ${pageTitle} @ ${pageUrl}`)
-
-  //console.log(browser.source)
-
-  // if (name in popups && !popups[name]) {
-  //   // If browser is blocking our pop-ups, return.
-  //   return
-  // }
-
-  // if (popups[name] && !popups[name].closed) {
-  //   popups[name].location = url
-  // } else {
-  //   popups[name] = window.open(url, name)
-  //   if (!popups[name]) {
-  //     $('#popup-alert').css('display', 'block')
-  //   }
-  // }
-
-  // TODO: work with switching tabs and a delay
-  // self.focus()
-  // setTimeout(function() {
-  //   if (!stop) noisify(name)
-  // }, Math.floor(Math.random() * 10000) + 8000)
 }
 
 function get_words() {
