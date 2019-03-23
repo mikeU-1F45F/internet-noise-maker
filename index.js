@@ -36,7 +36,11 @@ const lucky = async words => {
   // kp=1 Safe Search On https://duckduckgo.com/params
   const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
 
-  const browser = await puppeteer.launch({ headless: false })
+  const browser = await puppeteer.launch({
+    args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-setuid-sandbox'],
+    executablePath: '/usr/bin/chromium-browser',
+    headless: true,
+  })
   const page = await browser.newPage()
   page.setUserAgent(randomUserAgent.toString())
   page.setViewport(randomViewport)
@@ -61,7 +65,7 @@ const getWords = () => {
   const words = []
   const n = randomInterBetween(minNumberOfWords, maxNumberOfWords)
 
-  words.push('!ducky')  // Like Google's I'm Feeling Lucky
+  words.push('!ducky') // Like Google's I'm Feeling Lucky
   for (let i = 0; i < n; i++) {
     words.push(getRandomWord())
   }
