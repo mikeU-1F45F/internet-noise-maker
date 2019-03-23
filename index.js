@@ -1,9 +1,9 @@
-const nouns = require('./nouns.json');
+const nouns = require('./nouns.json')
 
-var stop = false
-var popups = {}
-var min_number_of_words = 2
-var max_number_of_words = 4
+let stop = false
+let popups = {}
+let min_number_of_words = 2
+let max_number_of_words = 4
 
 function random_integer_between(a, b) {
   return a + Math.floor((1 + b - a) * Math.random())
@@ -14,9 +14,9 @@ function get_random_word() {
 }
 
 function lucky(words, name) {
-  var url =
-    'https://www.google.com/search?btnI&q=' +
-    encodeURIComponent(words.join(' '))
+  const url = `https://www.google.com/search?btnI&q=${encodeURIComponent(
+    words.join(' '),
+  )}`
 
   if (name in popups && !popups[name]) {
     // If browser is blocking our pop-ups, return.
@@ -39,11 +39,13 @@ function lucky(words, name) {
 }
 
 function get_words() {
-  var words = []
-  var n = random_integer_between(min_number_of_words, max_number_of_words)
-  for (var i = 0; i < n; i++) {
+  const words = []
+  const n = random_integer_between(min_number_of_words, max_number_of_words)
+
+  for (let i = 0; i < n; i++) {
     words.push(get_random_word())
   }
+
   return words
 }
 
