@@ -14,22 +14,22 @@ const maxViewPort = {
   height: 1080,
 }
 
-function randomInterBetween(a, b) {
+const randomInterBetween = (a, b) => {
   return a + Math.floor((1 + b - a) * Math.random())
 }
 
-function getRandomWord() {
+const getRandomWord = () => {
   return nouns[randomInterBetween(0, nouns.length - 1)]
 }
 
-function getRandomViewport() {
+const getRandomViewport = () => {
   return {
     width: randomInterBetween(minViewPort.width, maxViewPort.width),
     height: randomInterBetween(minViewPort.height, maxViewPort.height),
   }
 }
 
-async function lucky(words) {
+const lucky = async words => {
   const encodedQueryWords = encodeURIComponent(words.join(' '))
   // kp=1 Safe Search On https://duckduckgo.com/params
   const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
@@ -56,7 +56,7 @@ async function lucky(words) {
   console.log(`User Agent: ${randomUserAgent}`)
 }
 
-function getWords() {
+const getWords = () => {
   const words = []
   const n = randomInterBetween(minNumberOfWords, maxNumberOfWords)
 
@@ -67,12 +67,13 @@ function getWords() {
   return words
 }
 
-async function delay(ms) {
+const delay = async ms => {
   return await new Promise(resolve => setTimeout(resolve, ms))
 }
 
-async function noisify() {
-  while (true) {  // TODO: Make graceful exit
+const noisify = async () => {
+  while (true) {
+    // TODO: Make graceful exit
     await lucky(getWords())
     await delay(10 * 1000)
   }
