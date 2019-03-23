@@ -31,6 +31,7 @@ const getRandomViewport = () => {
 
 const lucky = async words => {
   const randomUserAgent = new UserAgent()
+  const randomViewport = getRandomViewport()
   const encodedQueryWords = encodeURIComponent(words.join(' '))
   // kp=1 Safe Search On https://duckduckgo.com/params
   const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
@@ -38,39 +39,29 @@ const lucky = async words => {
   const browser = await puppeteer.launch({ headless: false })
   const page = await browser.newPage()
   page.setUserAgent(randomUserAgent.toString())
-  page.setViewport(getRandomViewport())
+  page.setViewport(randomViewport)
 
   console.info(`Navigating to: ${url}`)
   await page.goto(url)
-  await page.waitFor(10000)
+  await page.waitFor(10000) // Arbitrary, I know, but a little extra traffic is cool too.
 
-  // let pagetUrl = ''
-  // let pageTitle = ''
-  // try {
-  //   pageUrl = await browser
-  //     .goto(url)
-  //     .click('.result__a')
-  //     .wait(10000) // arbitrary, I know, but a little related extra traffic is cool too.
-  //     .url()
-  //   pageTitle = await browser.title().end()
-  // } catch (error) {
-  //   console.error(error)
-  // }
+  const pageUrl = await page.url()
+  const pageTitle = await page.title()
 
   await browser.close()
 
-  // console.log(`Internet Noise made at ${new Date()}`)
-  // console.log(`Title: ${pageTitle}`)
-  // console.log(`URL: ${pageUrl}`)
-  // console.log(`Viewport Size: ${randomViewport.width}x${randomViewport.height}`)
-  // console.log(`User Agent: ${randomUserAgent}`)
+  console.log(`Internet Noise made at ${new Date()}`)
+  console.log(`Title: ${pageTitle}`)
+  console.log(`URL: ${pageUrl}`)
+  console.log(`Viewport Size: ${randomViewport.width}x${randomViewport.height}`)
+  console.log(`User Agent: ${randomUserAgent}`)
 }
 
 const getWords = () => {
   const words = []
   const n = randomInterBetween(minNumberOfWords, maxNumberOfWords)
 
-  words.push('!ducky')
+  words.push('!ducky')  // Like Google's I'm Feeling Lucky
   for (let i = 0; i < n; i++) {
     words.push(getRandomWord())
   }
