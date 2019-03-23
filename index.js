@@ -1,8 +1,7 @@
 const nouns = require('./nouns.json')
 const Nightmare = require('nightmare')
+const UserAgent = require('user-agents')
 
-let stop = false
-//let popups = {}
 const minNumberOfWords = 2
 const maxNumberOfWords = 4
 
@@ -20,8 +19,9 @@ async function lucky(words, name) {
   const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
   console.info(`Navigating to: ${url}`)
 
+  const userAgent = new UserAgent()
   const browser = new Nightmare({ show: true })
-  // TODO: https://github.com/segmentio/nightmare#useragentuseragent
+  browser.useragent(userAgent.toString())
 
   const pageUrl = await browser
     .goto(url)
