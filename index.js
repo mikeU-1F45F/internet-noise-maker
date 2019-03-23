@@ -44,6 +44,7 @@ async function lucky(words) {
 
   const pageUrl = await browser
     .goto(url)
+    .click('.result__a')
     .wait(10000) // arbitrary, I know, but a little related extra traffic is cool too.
     .url()
   const pageTitle = await browser.title().end()
@@ -59,7 +60,6 @@ function getWords() {
   const words = []
   const n = randomInterBetween(minNumberOfWords, maxNumberOfWords)
 
-  words.push('!ducky') // Like Google's I'm feeling lucky button
   for (let i = 0; i < n; i++) {
     words.push(getRandomWord())
   }
@@ -72,9 +72,9 @@ async function delay(ms) {
 }
 
 async function noisify() {
-  while (true) {  // TODO: Make graceful exit 
-    await delay(10 * 1000)
+  while (true) {  // TODO: Make graceful exit
     await lucky(getWords())
+    await delay(10 * 1000)
   }
 }
 
