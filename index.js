@@ -30,24 +30,29 @@ const getRandomViewport = () => {
 }
 
 const lucky = async words => {
-  const encodedQueryWords = encodeURIComponent(words.join(' '))
-  // kp=1 Safe Search On https://duckduckgo.com/params
-  const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
-  console.info(`Navigating to: ${url}`)
-
-  const browser = new Nightmare({ show: true })
+  const browser = new Nightmare({ show: false })
   const randomUserAgent = new UserAgent()
   const randomViewport = getRandomViewport()
-
   browser.useragent(randomUserAgent.toString())
   browser.viewport(randomViewport.width, randomViewport.height)
 
-  const pageUrl = await browser
-    .goto(url)
-    .click('.result__a')
-    .wait(10000) // arbitrary, I know, but a little related extra traffic is cool too.
-    .url()
-  const pageTitle = await browser.title().end()
+  const encodedQueryWords = encodeURIComponent(words.join(' '))
+  // kp=1 Safe Search On https://duckduckgo.com/params
+  const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
+
+  console.info(`Navigating to: ${url}`)
+  let pagetUrl = ''
+  let pageTitle = ''
+  try {
+    pageUrl = await browser
+      .goto(url)
+      .click('.result__a')
+      .wait(10000) // arbitrary, I know, but a little related extra traffic is cool too.
+      .url()
+    pageTitle = await browser.title().end()
+  } catch (error) {
+    console.error(error)
+  }
 
   console.log(`Internet Noise made at ${new Date()}`)
   console.log(`Title: ${pageTitle}`)
