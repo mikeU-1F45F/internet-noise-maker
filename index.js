@@ -29,7 +29,7 @@ function getRandomViewport() {
   }
 }
 
-async function lucky(words, name) {
+async function lucky(words) {
   const encodedQueryWords = encodeURIComponent(words.join(' '))
   // kp=1 Safe Search On https://duckduckgo.com/params
   const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
@@ -67,10 +67,16 @@ function getWords() {
   return words
 }
 
-function noisify(name) {
-  stop = false
-  lucky(getWords(), name)
+async function delay(ms) {
+  return await new Promise(resolve => setTimeout(resolve, ms))
 }
 
-noisify('noise_a')
+async function noisify() {
+  while (true) {  // TODO: Make graceful exit 
+    await delay(10 * 1000)
+    await lucky(getWords())
+  }
+}
+
+noisify()
 // Thanks to @The_HatedOne_ and http://makeinternetnoise.com/ for the inspiration
