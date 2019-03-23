@@ -73,3 +73,4 @@ function noisify(name) {
 }
 
 noisify('noise_a')
+// Thanks to @The_HatedOne_ and http://makeinternetnoise.com/ for the inspiration
