@@ -9,6 +9,6 @@
   "author": "Mike Chu",
   "license": "ISC",
   "dependencies": {
-    "zombie": "^6.1.4"
+    "nightmare": "^3.0.1"
   }
 }
