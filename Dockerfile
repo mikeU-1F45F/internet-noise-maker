@@ -20,5 +20,5 @@ RUN npm install
 
 CMD npm start
 
-# docker build --rm=true -t itsmikechu/internet-noise-maker:1.0.0 .
-# docker push itsmikechu/internet-noise-maker:1.0.0
+# docker build --rm=true -t itsmikechu/internet-noise-maker:1.1.0 .
+# docker push itsmikechu/internet-noise-maker:1.1.0
