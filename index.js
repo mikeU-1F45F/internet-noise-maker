@@ -60,17 +60,23 @@ const lucky = async words => {
     executablePath: '/usr/bin/chromium-browser',
     //headless: false,
   })
-  const page = await browser.newPage()
-  page.setUserAgent(randomUserAgent.toString())
-  page.setViewport(randomViewport)
 
-  console.info(`Navigating to: ${url}`)
-  await page.goto(url)
-  await page.waitFor(randomMsViewingPage)
+  let pageUrl = ''
+  let pageTitle = ''
+  try {
+    const page = await browser.newPage()
+    page.setUserAgent(randomUserAgent.toString())
+    page.setViewport(randomViewport)
 
-  const pageUrl = await page.url()
-  const pageTitle = await page.title()
+    console.info(`Navigating to: ${url}`)
+    await page.goto(url)
+    await page.waitFor(randomMsViewingPage)
 
+    pageUrl = await page.url()
+    pageTitle = await page.title()
+  } catch (error) {
+    console.log('Exception', id, error.message)
+  }
   await browser.close()
 
   console.log(`Internet Noise made at ${new Date()}`)
