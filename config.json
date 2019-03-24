@@ -12,5 +12,15 @@
   "wordCount": {
     "minimum": 2,
     "maximum": 4
+  },
+  "delay": {
+    "secondsViewingPage": {
+      "minimum": 5,
+      "maximum": 30
+    },
+    "secondsToNextPage": {
+      "minimum": 2,
+      "maximum": 10
+    }
   }
 }

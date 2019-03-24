@@ -24,9 +24,29 @@ const getRandomViewport = () => {
   }
 }
 
+const getRandomMsToNextPage = () => {
+  return (
+    randomInterBetween(
+      config.delay.secondsToNextPage.minimum,
+      config.delay.secondsToNextPage.maximum,
+    ) * 1000
+  )
+}
+
+const getRandomMsViewingPage = () => {
+  return (
+    randomInterBetween(
+      config.delay.secondsViewingPage.minimum,
+      config.delay.secondsViewingPage.maximum,
+    ) * 1000
+  )
+}
+
 const lucky = async words => {
   const randomUserAgent = new UserAgent()
   const randomViewport = getRandomViewport()
+  const randomMsViewingPage = getRandomMsViewingPage()
+
   const encodedQueryWords = encodeURIComponent(words.join(' '))
   // kp=1 Safe Search On https://duckduckgo.com/params
   const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
@@ -38,7 +58,7 @@ const lucky = async words => {
       '--disable-setuid-sandbox',
     ],
     executablePath: '/usr/bin/chromium-browser',
-    headless: true,
+    //headless: false,
   })
   const page = await browser.newPage()
   page.setUserAgent(randomUserAgent.toString())
@@ -46,7 +66,7 @@ const lucky = async words => {
 
   console.info(`Navigating to: ${url}`)
   await page.goto(url)
-  await page.waitFor(10000) // Arbitrary, I know, but a little extra traffic is cool too.
+  await page.waitFor(randomMsViewingPage)
 
   const pageUrl = await page.url()
   const pageTitle = await page.title()
@@ -58,6 +78,7 @@ const lucky = async words => {
   console.log(`URL: ${pageUrl}`)
   console.log(`Viewport Size: ${randomViewport.width}x${randomViewport.height}`)
   console.log(`User Agent: ${randomUserAgent}`)
+  console.log(`Viewed Page for ${randomMsViewingPage / 1000} seconds`)
 }
 
 const getWords = () => {
@@ -80,10 +101,14 @@ const delay = async ms => {
 }
 
 const noisify = async () => {
+  let randomMsBeforNextPage = getRandomMsToNextPage()
   // TODO: Make graceful exit
   while (true) {
     await lucky(getWords())
-    await delay(10 * 1000)
+    console.log(
+      `Delay seconds before next page: ${randomMsBeforNextPage / 1000}`,
+    )
+    await delay((randomMsBeforNextPage = getRandomMsToNextPage()))
   }
 }
 
