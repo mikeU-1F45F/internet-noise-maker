@@ -43,6 +43,8 @@ const getRandomMsViewingPage = () => {
 }
 
 const lucky = async words => {
+  console.log(`\r\nMaking Internet Noise at ${new Date()}`)
+
   const randomUserAgent = new UserAgent()
   const randomViewport = getRandomViewport()
   const randomMsViewingPage = getRandomMsViewingPage()
@@ -58,7 +60,7 @@ const lucky = async words => {
       '--disable-setuid-sandbox',
       '--disable-gpu',
     ],
-    executablePath: '/usr/bin/chromium-browser',
+    //executablePath: '/usr/bin/chromium-browser',
     //headless: false,
   })
 
@@ -66,26 +68,29 @@ const lucky = async words => {
   let pageTitle = ''
   try {
     const page = await browser.newPage()
-    page.setUserAgent(randomUserAgent.toString())
-    page.setViewport(randomViewport)
 
-    console.info(`Navigating to: ${url}`)
+    page.setUserAgent(randomUserAgent.toString())
+    console.log(`Set user agent to ${randomUserAgent}`)
+
+    page.setViewport(randomViewport)
+    console.log(
+      `Set viewport to ${randomViewport.width}x${randomViewport.height}`,
+    )
+
+    console.info(`DDG search: ${url}`)
     await page.goto(url)
+
+    console.log(`Waiting on page for ${randomMsViewingPage / 1000} seconds`)
     await page.waitFor(randomMsViewingPage)
 
     pageUrl = await page.url()
     pageTitle = await page.title()
+    console.log(`Title: ${pageTitle}`)
+    console.log(`URL: ${pageUrl}`)
   } catch (error) {
-    console.log('Exception', id, error.message)
+    console.log('Exception', error.message)
   }
   await browser.close()
-
-  console.log(`Internet Noise made at ${new Date()}`)
-  console.log(`Title: ${pageTitle}`)
-  console.log(`URL: ${pageUrl}`)
-  console.log(`Viewport Size: ${randomViewport.width}x${randomViewport.height}`)
-  console.log(`User Agent: ${randomUserAgent}`)
-  console.log(`Viewed Page for ${randomMsViewingPage / 1000} seconds`)
 }
 
 const getWords = () => {
@@ -113,11 +118,12 @@ const noisify = async () => {
   while (true) {
     await lucky(getWords())
     console.log(
-      `Delay seconds before next page: ${randomMsBeforNextPage / 1000}`,
+      `Delaying ${randomMsBeforNextPage / 1000} seconds before next page`,
     )
     await delay((randomMsBeforNextPage = getRandomMsToNextPage()))
   }
 }
 
 noisify()
+
 // Thanks to @The_HatedOne_ and http://makeinternetnoise.com/ for the inspiration
