@@ -56,6 +56,7 @@ const lucky = async words => {
       '--disable-dev-shm-usage',
       '--no-sandbox',
       '--disable-setuid-sandbox',
+      '--disable-gpu',
     ],
     executablePath: '/usr/bin/chromium-browser',
     //headless: false,
