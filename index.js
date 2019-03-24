@@ -1,4 +1,4 @@
-const nouns = require('./nouns.json')
+const nouns = require('./nouns')
 const config = require('./config')
 const puppeteer = require('puppeteer')
 const UserAgent = require('user-agents')
@@ -14,12 +14,12 @@ const getRandomWord = () => {
 const getRandomViewport = () => {
   return {
     width: randomInterBetween(
-      config.ViewPort.Minimum.width,
-      config.ViewPort.Maximum.width,
+      config.viewPort.minimum.width,
+      config.viewPort.maximum.width,
     ),
     height: randomInterBetween(
-      config.ViewPort.Minimum.height,
-      config.ViewPort.Maximum.height,
+      config.viewPort.minimum.height,
+      config.viewPort.maximum.height,
     ),
   }
 }
@@ -32,7 +32,11 @@ const lucky = async words => {
   const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
 
   const browser = await puppeteer.launch({
-    args: ['--disable-dev-shm-usage', '--no-sandbox', '--disable-setuid-sandbox'],
+    args: [
+      '--disable-dev-shm-usage',
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ],
     executablePath: '/usr/bin/chromium-browser',
     headless: true,
   })
@@ -59,8 +63,8 @@ const lucky = async words => {
 const getWords = () => {
   const words = []
   const n = randomInterBetween(
-    config.WordCount.Minimum,
-    config.WordCount.Maximum,
+    config.wordCount.minimum,
+    config.wordCount.maximum,
   )
 
   words.push('!ducky') // Like Google's I'm Feeling Lucky
