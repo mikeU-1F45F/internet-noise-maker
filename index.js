@@ -1,18 +1,7 @@
 const nouns = require('./nouns.json')
+const config = require('./config')
 const puppeteer = require('puppeteer')
 const UserAgent = require('user-agents')
-
-const minNumberOfWords = 2
-const maxNumberOfWords = 4
-
-const minViewPort = {
-  width: 360,
-  height: 640,
-}
-const maxViewPort = {
-  width: 1920,
-  height: 1080,
-}
 
 const randomInterBetween = (a, b) => {
   return a + Math.floor((1 + b - a) * Math.random())
@@ -24,8 +13,14 @@ const getRandomWord = () => {
 
 const getRandomViewport = () => {
   return {
-    width: randomInterBetween(minViewPort.width, maxViewPort.width),
-    height: randomInterBetween(minViewPort.height, maxViewPort.height),
+    width: randomInterBetween(
+      config.ViewPort.Minimum.width,
+      config.ViewPort.Maximum.width,
+    ),
+    height: randomInterBetween(
+      config.ViewPort.Minimum.height,
+      config.ViewPort.Maximum.height,
+    ),
   }
 }
 
@@ -63,7 +58,10 @@ const lucky = async words => {
 
 const getWords = () => {
   const words = []
-  const n = randomInterBetween(minNumberOfWords, maxNumberOfWords)
+  const n = randomInterBetween(
+    config.WordCount.Minimum,
+    config.WordCount.Maximum,
+  )
 
   words.push('!ducky') // Like Google's I'm Feeling Lucky
   for (let i = 0; i < n; i++) {

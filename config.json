@@ -1,0 +1,16 @@
+{
+  "ViewPort" : {
+    "Minimum" : {
+      "width": 360,
+      "height": 640
+    },
+    "Maximum" : {
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  "WordCount": {
+    "Minimum" : 2,
+    "Maximum": 4
+  }
+}
