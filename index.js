@@ -116,7 +116,9 @@ const delay = async ms => {
 }
 
 const noisify = async () => {
-  console.log(`Running with NODE_ENV=${process.env.NODE_ENV}`)
+  if (process.env.NODE_ENV) {
+    console.log(`Running with NODE_ENV=${process.env.NODE_ENV}`)
+  }
 
   let randomMsBeforNextPage = getRandomMsToNextPage()
   // TODO: Make graceful exit
