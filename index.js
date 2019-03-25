@@ -63,7 +63,7 @@ const lucky = async words => {
   }
   if (process.env.NODE_ENV === 'production') {
     launchOptions.executablePath = '/usr/bin/chromium-browser'
-    headless = true
+    launchOptions.headless = true
   }
   const browser = await puppeteer.launch(launchOptions)
 
@@ -86,9 +86,9 @@ const lucky = async words => {
     console.log(`Waiting on page for ${randomMsViewingPage / 1000} seconds`)
     await page.waitFor(randomMsViewingPage)
 
-    pageUrl = await page.url()
     pageTitle = await page.title()
     console.log(`Title: ${pageTitle}`)
+    pageUrl = await page.url()
     console.log(`URL: ${pageUrl}`)
   } catch (error) {
     console.log('Exception', error.message)
@@ -120,14 +120,14 @@ const noisify = async () => {
     console.log(`Running with NODE_ENV=${process.env.NODE_ENV}`)
   }
 
-  let randomMsBeforNextPage = getRandomMsToNextPage()
+  let randomMsBeforeNextPage = getRandomMsToNextPage()
   // TODO: Make graceful exit
   while (true) {
     await lucky(getWords())
     console.log(
-      `Delaying ${randomMsBeforNextPage / 1000} seconds before next page`,
+      `Delaying ${randomMsBeforeNextPage / 1000} seconds before next page`,
     )
-    await delay((randomMsBeforNextPage = getRandomMsToNextPage()))
+    await delay((randomMsBeforeNextPage = getRandomMsToNextPage()))
   }
 }
 
