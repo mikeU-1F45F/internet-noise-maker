@@ -6,6 +6,8 @@ RUN mkdir -p ${SRC_ROOT}
 WORKDIR ${SRC_ROOT}
 COPY . ${SRC_ROOT}
 
+ENV NODE_ENV=production
+
 # https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-on-alpine
 RUN apk update && apk upgrade && \
   echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
@@ -20,5 +22,5 @@ RUN npm install
 
 CMD npm start
 
-# docker build --rm=true -t itsmikechu/internet-noise-maker:1.1.0 .
-# docker push itsmikechu/internet-noise-maker:1.1.0
+# docker build --rm=true -t itsmikechu/internet-noise-maker:1.1.1 .
+# docker push itsmikechu/internet-noise-maker:1.1.1

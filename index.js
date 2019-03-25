@@ -53,16 +53,20 @@ const lucky = async words => {
   // kp=1 Safe Search On https://duckduckgo.com/params
   const url = `https://duckduckgo.com/?kp=1&q=${encodedQueryWords}`
 
-  const browser = await puppeteer.launch({
+  const launchOptions = {
     args: [
       '--disable-dev-shm-usage',
       '--no-sandbox',
       '--disable-setuid-sandbox',
       '--disable-gpu',
     ],
-    //executablePath: '/usr/bin/chromium-browser',
-    //headless: false,
-  })
+    headless: false
+  }
+  if (process.env.NODE_ENV === 'production') {
+    launchOptions.executablePath = '/usr/bin/chromium-browser'
+    headless = true
+  }
+  const browser = await puppeteer.launch(launchOptions)
 
   let pageUrl = ''
   let pageTitle = ''
@@ -113,6 +117,8 @@ const delay = async ms => {
 }
 
 const noisify = async () => {
+  console.log(`Running with NODE_ENV=${process.env.NODE_ENV}`)
+  
   let randomMsBeforNextPage = getRandomMsToNextPage()
   // TODO: Make graceful exit
   while (true) {
