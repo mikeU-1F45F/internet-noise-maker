@@ -58,9 +58,8 @@ const lucky = async words => {
       '--disable-dev-shm-usage',
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      '--disable-gpu',
     ],
-    headless: false
+    headless: false,
   }
   if (process.env.NODE_ENV === 'production') {
     launchOptions.executablePath = '/usr/bin/chromium-browser'
@@ -118,7 +117,7 @@ const delay = async ms => {
 
 const noisify = async () => {
   console.log(`Running with NODE_ENV=${process.env.NODE_ENV}`)
-  
+
   let randomMsBeforNextPage = getRandomMsToNextPage()
   // TODO: Make graceful exit
   while (true) {
