@@ -2,7 +2,19 @@
   "name": "internet-noise-maker",
   "version": "1.1.1",
   "description": "Make some noise for your ISP to chew on",
+  "keywords": [
+    "internet noise",
+    "noise maker",
+    "random search",
+    "ISP monitoring",
+    "protest logging",
+    "internet service provider",
+  ],
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/itsmikechu/internet-noise-maker.git"
+  },
   "scripts": {
     "start": "node index.js"
   },
