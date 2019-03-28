@@ -65,11 +65,11 @@ const lucky = async words => {
     launchOptions.executablePath = '/usr/bin/chromium-browser'
     launchOptions.headless = true
   }
-  const browser = await puppeteer.launch(launchOptions)
 
   let pageUrl = ''
   let pageTitle = ''
   try {
+    const browser = await puppeteer.launch(launchOptions)
     const page = await browser.newPage()
 
     page.setUserAgent(randomUserAgent.toString())
@@ -90,10 +90,11 @@ const lucky = async words => {
     console.log(`Title: ${pageTitle}`)
     pageUrl = await page.url()
     console.log(`URL: ${pageUrl}`)
+    
+    await browser.close()
   } catch (error) {
     console.log('Exception', error.message)
   }
-  await browser.close()
 }
 
 const getWords = () => {
