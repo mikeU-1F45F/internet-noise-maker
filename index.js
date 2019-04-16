@@ -72,6 +72,21 @@ const lucky = async words => {
     const browser = await puppeteer.launch(launchOptions)
     const page = await browser.newPage()
 
+    function handleClose(msg) {
+      console.log(msg)
+      page.close()
+      browser.close()
+      process.exit(1)
+    }
+
+    process.on('uncaughtException', () => {
+      handleClose('Uncaught Exception on process')
+    })
+
+    process.on('unhandledRejection', () => {
+      handleClose('Unhandled rejection on process')
+    })
+
     page.setUserAgent(randomUserAgent.toString())
     console.log(`Set user agent to ${randomUserAgent}`)
 
@@ -90,7 +105,8 @@ const lucky = async words => {
     console.log(`Title: ${pageTitle}`)
     pageUrl = await page.url()
     console.log(`URL: ${pageUrl}`)
-    
+
+    await page.close()
     await browser.close()
   } catch (error) {
     console.log('Exception', error.message)
