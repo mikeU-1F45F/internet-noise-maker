@@ -1,6 +1,8 @@
-# Project Title
+# Internet Noise Maker
 
-One Paragraph of project description goes here
+Ever wanted some friends over to help surf the web and fill up your Internet Service Provider's surveillance log of your web traffic? I can _absolutely_ be your friend, but I won't be able to come over.
+
+This is a Dockerized (oops containerized) version of the [Internet Noise](http://makeinternetnoise.com/) site by [Dan Schultz](https://twitter.com/slifty).  I heard about the project from The_HatedOne's [YouTube channel](https://www.youtube.com/channel/UCjr2bPAyPV7t35MvcgT3W8Q)
 
 ## Getting Started
 
