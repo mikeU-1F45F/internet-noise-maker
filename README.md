@@ -10,10 +10,17 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+You'll need:
+- an always-on server (because who doesn't run their own server)
+- Docker or your favorite container engine running
+- a bit of understanding about containers
+
+I've hosted the [image on Docker Hub](https://hub.docker.com/r/itsmikechu/internet-noise-maker) for ease of distribution.
+
+Simply run
 
 ```
-Give examples
+docker pull itsmikechu/internet-noise-maker
 ```
 
 ### Installing
