@@ -12,14 +12,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 You'll need:
 - an always-on server (because who doesn't run their own server)
-- Docker or your favorite container engine running
+- Docker or your favorite container engine
 - a bit of understanding about containers
 
 I've hosted the [image on Docker Hub](https://hub.docker.com/r/itsmikechu/internet-noise-maker) for ease of distribution.
 
 ### Let's Get Installing
 
-First, pull the image to your server
+Pull the image to your server
 
 ```
 docker pull itsmikechu/internet-noise-maker
@@ -52,5 +52,5 @@ This project is licensed under the MIT License
 
 ## Acknowledgments
 
-- [Dan Schultz](https://twitter.com/slifty).
+- [Dan Schultz](https://twitter.com/slifty)
 - [The_HatedOne](https://www.youtube.com/channel/UCjr2bPAyPV7t35MvcgT3W8Q)
