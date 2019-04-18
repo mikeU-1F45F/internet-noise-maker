@@ -17,29 +17,26 @@ You'll need:
 
 I've hosted the [image on Docker Hub](https://hub.docker.com/r/itsmikechu/internet-noise-maker) for ease of distribution.
 
-Simply run
+### Let's Get Installing
+
+First, pull the image to your server
 
 ```
 docker pull itsmikechu/internet-noise-maker
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+Then we can spin up a running container using my favorite flags/arguments
 
 ```
-Give the example
+docker run -d --name="noise" --restart="always" --net="host" --shm-size="1gb" itsmikechu/internet-noise-maker
 ```
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+Here's an explaination of the recommended flags:
+- `-d` Run the container in the background
+- `--name` Choose whatever name you'd like for the running container
+- `--restart="always"` We want this running even if it exits unexpectedly or the server is rebooted
+- `--net="host"` Use the server's network connection
+- `--shm-size` [Puppeteer](https://github.com/GoogleChrome/puppeteer) requires a bit more memory than most containers
 
 ## Running the tests
 
