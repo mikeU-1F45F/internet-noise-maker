@@ -38,26 +38,6 @@ Here's an explaination of the recommended flags:
 - `--net="host"` Use the server's network connection
 - `--shm-size` [Puppeteer](https://github.com/GoogleChrome/puppeteer) requires a bit more memory than most containers
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
